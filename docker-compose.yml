@@ -54,13 +54,13 @@ services:
       - DENO_PATH=/usr/bin/deno
       - PYTHON_PATH=/usr/local/bin/python3
       - METRICS_ADDR=false
-      - ROOT_CACHE_DIR=/tmp/windmill/cache
+      - ROOT_CACHE_DIR=/tmp/windmill-worker-cache
     depends_on:
       db:
         condition: service_healthy
     # to mount the worker folder to debug,, KEEP_JOB_DIR=true and mount /tmp/windmill
     volumes:
-      - worker_dependency_cache:/tmp/windmill/cache
+      - worker_dependency_cache:/tmp/windmill-worker-cache
 
   lsp:
     image: ghcr.io/windmill-labs/windmill-lsp:latest
