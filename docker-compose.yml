@@ -54,6 +54,7 @@ services:
       - DENO_PATH=/usr/bin/deno
       - PYTHON_PATH=/usr/local/bin/python3
       - METRICS_ADDR=false
+      - ROOT_CACHE_DIR=/tmp/windmill/cache
     depends_on:
       db:
         condition: service_healthy
