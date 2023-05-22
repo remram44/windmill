@@ -122,18 +122,20 @@ pub async fn create_token_for_owner(
     Ok(token)
 }
 
-pub const TMP_DIR: &str = "/tmp/windmill";
-pub const ROOT_CACHE_DIR: &str = "/tmp/windmill/cache/";
-pub const ROOT_TMP_CACHE_DIR: &str = "/tmp/windmill/tmpcache/";
-pub const PIP_CACHE_DIR: &str = concatcp!(ROOT_CACHE_DIR, "pip");
-pub const DENO_CACHE_DIR: &str = concatcp!(ROOT_CACHE_DIR, "deno");
-pub const GO_CACHE_DIR: &str = concatcp!(ROOT_CACHE_DIR, "go");
-pub const HUB_CACHE_DIR: &str = concatcp!(ROOT_CACHE_DIR, "hub");
+lazy_static::lazy_static! {
+    pub static ref TMP_DIR: String = std::env::var("WORKER_TEMP_DIR").unwrap_or_else(|_| "/tmp/windmill".to_string());
+    pub static ref ROOT_CACHE_DIR: String = std::env::var("WORKER_CACHE_DIR").unwrap_or_else(|_| "/tmp/windmill/cache/".to_string());
+    pub static ref ROOT_TMP_CACHE_DIR: String = std::env::var("WORKER_TEMP_CACHE_DIR").unwrap_or_else(|_| "/tmp/windmill/tmpcache/".to_string());
+    pub static ref PIP_CACHE_DIR: String = ROOT_CACHE_DIR.clone() + "pip";
+    pub static ref DENO_CACHE_DIR: String = ROOT_CACHE_DIR.clone() + "deno";
+    pub static ref GO_CACHE_DIR: String = ROOT_CACHE_DIR.clone() + "go";
+    pub static ref HUB_CACHE_DIR: String = ROOT_CACHE_DIR.clone() + "hub";
 
-pub const TAR_PIP_TMP_CACHE_DIR: &str = concatcp!(ROOT_TMP_CACHE_DIR, "tar/pip");
-pub const DENO_TMP_CACHE_DIR: &str = concatcp!(ROOT_TMP_CACHE_DIR, "deno");
-pub const GO_TMP_CACHE_DIR: &str = concatcp!(ROOT_TMP_CACHE_DIR, "go");
-pub const HUB_TMP_CACHE_DIR: &str = concatcp!(ROOT_TMP_CACHE_DIR, "hub");
+    pub static ref TAR_PIP_TMP_CACHE_DIR: String = ROOT_TMP_CACHE_DIR.clone() + "tar/pip";
+    pub static ref DENO_TMP_CACHE_DIR: String = ROOT_TMP_CACHE_DIR.clone() + "deno";
+    pub static ref GO_TMP_CACHE_DIR: String = ROOT_TMP_CACHE_DIR.clone() + "go";
+    pub static ref HUB_TMP_CACHE_DIR: String = ROOT_TMP_CACHE_DIR.clone() + "hub";
+}
 
 const NUM_SECS_PING: u64 = 5;
 
